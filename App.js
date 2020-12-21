@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import {
     AdMobBanner,
@@ -7,9 +7,28 @@ import {
     AdMobRewarded,
     setTestDeviceIDAsync,
 } from "expo-ads-admob";
-import Screen from "./app/screens/screenController";
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+import ScreenController from "./app/routes/screenController";
+
+const getFont = () => {
+    return Font.loadAsync({
+        nanumpenB: require("./app/assets/fonts/NanumBarunpenB.ttf"),
+        nanumpenR: require("./app/assets/fonts/NanumBarunpenR.ttf"),
+    });
+};
 
 export default function App() {
+    const [fontLoaded, setFontLoaded] = useState(false);
+
+    const interstitial = async () => {
+        await AdMobInterstitial.setAdUnitID(
+            "ca-app-pub-8596476786252416/4478788560"
+        );
+        await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+        await AdMobInterstitial.showAdAsync();
+    };
+
     const banner = () => {
         return (
             <AdMobBanner
@@ -21,12 +40,28 @@ export default function App() {
         );
     };
 
-    return (
-        <View style={styles.container}>
-            <Screen />
-            {banner()}
-        </View>
-    );
+    /*useEffect(() => {
+        interstitial();
+    }, [fontLoaded]);*/
+
+    if (fontLoaded) {
+        return (
+            <View style={styles.container}>
+                <ScreenController />
+                <View style={{ alignItems: "flex-end" }}>{banner()}</View>
+            </View>
+        );
+    } else {
+        return (
+            <AppLoading
+                startAsync={getFont}
+                onFinish={() => {
+                    setFontLoaded(true);
+                }}
+                onError={console.warn}
+            />
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -34,6 +69,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "yellow",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-end",
     },
 });

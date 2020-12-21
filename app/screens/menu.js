@@ -8,35 +8,36 @@ import {
     TouchableOpacity,
     Image,
 } from "react-native";
+import back from "../assets/back.png";
 //import logo from "../assets/logo.png";
 
 export default function screen(props) {
     return (
-        <View>
+        <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => {
-                    props.setShowNum(2);
-                }}
+                onPress={() => props.navigation.navigate("Name")}
+                style={[styles.button, { backgroundColor: "yellow" }]}
             >
                 <Text
                     style={{
-                        fontSize: 18,
+                        fontSize: 20,
+                        fontFamily: "nanumpenB",
                     }}
                 >
-                    name
+                    이름으로 랜덤뽑기!
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={() => {
-                    props.setShowNum(3);
-                }}
+                onPress={() => props.navigation.navigate("Num")}
+                style={styles.button}
             >
                 <Text
                     style={{
-                        fontSize: 18,
+                        fontSize: 20,
+                        fontFamily: "nanumpenB",
                     }}
                 >
-                    number
+                    숫자로 랜덤뽑기!
                 </Text>
             </TouchableOpacity>
         </View>
@@ -44,6 +45,24 @@ export default function screen(props) {
 }
 
 const styles = StyleSheet.create({
-    container: {},
-    button: {},
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    button: {
+        width: "60%",
+        height: "10%",
+        //backgroundColor: "yellow",
+        borderColor: "black",
+        borderWidth: 1,
+        borderRadius: 15,
+        marginBottom: "10%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    backButton: {
+        width: 40,
+        height: 40,
+    },
 });
