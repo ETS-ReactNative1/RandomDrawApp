@@ -63,6 +63,7 @@ export default function screen(props) {
                 style={[styles.input, { margin: "3%", color: "orange" }]}
                 keyboardType="numeric"
                 placeholder="  0  "
+                maxLength={6}
                 onChangeText={(num) => setMin(num)}
             />
             <Text style={[styles.text, { margin: "3%" }]}>부터</Text>
@@ -70,6 +71,7 @@ export default function screen(props) {
                 style={[styles.input, { margin: "3%", color: "indianred" }]}
                 keyboardType="numeric"
                 placeholder=" 1 0"
+                maxLength={6}
                 onChangeText={(num) => setMax(num)}
             />
             <Text
@@ -86,15 +88,18 @@ export default function screen(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.8,
+        flex: 1,
+        paddingBottom: "20%",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "#fffff8",
     },
     button: {
-        borderColor: "black",
+        borderColor: "darkgrey",
         borderWidth: 1,
         borderRadius: 15,
-        padding: "3%",
+        padding: "4%",
+        backgroundColor: "#faf0e5",
     },
     input: {
         fontFamily: "nanumpenB",

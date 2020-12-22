@@ -7,7 +7,6 @@ import {
     Button,
     FlatList,
     TouchableOpacity,
-    TouchableHighlight,
     Image,
     a,
 } from "react-native";
@@ -89,7 +88,12 @@ export default function screen(props) {
         try {
             const list = await AsyncStorage.getItem("groupList");
             if (list !== null) {
-                setGroupData(JSON.parse(list));
+                const _list = JSON.parse(list);
+                if (_list.length === 0) {
+                    setGroupData([{ group: "Basic", members: [] }]);
+                } else {
+                    setGroupData(_list);
+                }
             } else {
                 setGroupData([{ group: "Basic", members: [] }]);
             }
@@ -129,6 +133,7 @@ export default function screen(props) {
                                     fontSize: 20,
                                     fontFamily: "nanumpenB",
                                 }}
+                                maxLength={20}
                                 onChangeText={(text) => {
                                     setAddItem(text);
                                 }}
@@ -138,10 +143,10 @@ export default function screen(props) {
                                     flexDirection: "row",
                                 }}
                             >
-                                <TouchableHighlight
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ffa0aa",
                                     }}
                                     onPress={() => {
                                         if (addItem === "") {
@@ -157,11 +162,11 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>추가</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
+                                </TouchableOpacity>
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ddd8d8",
                                     }}
                                     onPress={() => {
                                         setItemAddModalVisible(
@@ -170,7 +175,7 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>취소</Text>
-                                </TouchableHighlight>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -206,6 +211,7 @@ export default function screen(props) {
                                     fontSize: 20,
                                     fontFamily: "nanumpenB",
                                 }}
+                                maxLength={20}
                                 onChangeText={(text) => {
                                     setAddItem(text);
                                 }}
@@ -215,29 +221,34 @@ export default function screen(props) {
                                     flexDirection: "row",
                                 }}
                             >
-                                <TouchableHighlight
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ffa07a",
                                     }}
                                     onPress={() => {
-                                        editItemList(
-                                            selectedIndex,
-                                            selectedItemIndex,
-                                            addItem
-                                        );
-
-                                        setItemEditModalVisible(
-                                            !itemEditModalVisible
-                                        );
+                                        if (addItem === "") {
+                                            setItemEditModalVisible(
+                                                !itemEditModalVisible
+                                            );
+                                        } else {
+                                            editItemList(
+                                                selectedIndex,
+                                                selectedItemIndex,
+                                                addItem
+                                            );
+                                            setItemEditModalVisible(
+                                                !itemEditModalVisible
+                                            );
+                                        }
                                     }}
                                 >
                                     <Text style={styles.textStyle}>수정</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
+                                </TouchableOpacity>
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ddd8d8",
                                     }}
                                     onPress={() => {
                                         setItemEditModalVisible(
@@ -246,7 +257,7 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>취소</Text>
-                                </TouchableHighlight>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -273,17 +284,17 @@ export default function screen(props) {
                                 }}
                             >
                                 {" "}
-                                아이템 삭제하기{" "}
+                                아이템 삭제하기{" \n"}
                             </Text>
                             <View
                                 style={{
                                     flexDirection: "row",
                                 }}
                             >
-                                <TouchableHighlight
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ffa07a",
                                     }}
                                     onPress={() => {
                                         removeItemList(
@@ -296,11 +307,11 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>삭제</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
+                                </TouchableOpacity>
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ddd8d8",
                                     }}
                                     onPress={() => {
                                         setItemDeleteModalVisible(
@@ -309,7 +320,7 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>취소</Text>
-                                </TouchableHighlight>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -345,6 +356,7 @@ export default function screen(props) {
                                     fontSize: 20,
                                     fontFamily: "nanumpenB",
                                 }}
+                                maxLength={20}
                                 onChangeText={(text) => {
                                     setAddItem(text);
                                 }}
@@ -354,10 +366,10 @@ export default function screen(props) {
                                     flexDirection: "row",
                                 }}
                             >
-                                <TouchableHighlight
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ffa07a",
                                     }}
                                     onPress={() => {
                                         if (addItem === "") {
@@ -378,11 +390,11 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>추가</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
+                                </TouchableOpacity>
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ddd8d8",
                                     }}
                                     onPress={() => {
                                         setGroupAddModalVisible(
@@ -391,7 +403,7 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>취소</Text>
-                                </TouchableHighlight>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -417,17 +429,17 @@ export default function screen(props) {
                                 }}
                             >
                                 {" "}
-                                그룹 삭제하기{" "}
+                                그룹 삭제하기{" \n"}
                             </Text>
                             <View
                                 style={{
                                     flexDirection: "row",
                                 }}
                             >
-                                <TouchableHighlight
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ffa07a",
                                     }}
                                     onPress={() => {
                                         removeGroupList(selectedIndex);
@@ -438,11 +450,11 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>삭제</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
+                                </TouchableOpacity>
+                                <TouchableOpacity
                                     style={{
                                         ...styles.openButton,
-                                        backgroundColor: "#2196F3",
+                                        backgroundColor: "#ddd8d8",
                                     }}
                                     onPress={() => {
                                         setGroupDeleteModalVisible(
@@ -451,7 +463,7 @@ export default function screen(props) {
                                     }}
                                 >
                                     <Text style={styles.textStyle}>취소</Text>
-                                </TouchableHighlight>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -465,13 +477,12 @@ export default function screen(props) {
             return {
                 flex: 1,
                 flexDirection: "row",
-                backgroundColor: "antiquewhite",
             };
         } else {
             return {
                 flex: 1,
                 flexDirection: "row",
-                backgroundColor: "beige",
+                backgroundColor: "blanchedalmond",
             };
         }
     };
@@ -486,22 +497,22 @@ export default function screen(props) {
                 {groupDeleteModal()}
                 <View
                     style={{
-                        flex: 1,
+                        flex: 1.2,
                         flexDirection: "row",
-                        borderWidth: 1,
                         paddingHorizontal: "5%",
                         justifyContent: "space-around",
                     }}
                 >
                     <Text
                         style={{
-                            flex: 1,
+                            flex: 1.4,
                             fontFamily: "nanumpenB",
-                            fontSize: 18,
+                            fontSize: 20,
                             textAlignVertical: "center",
                             marginRight: "5%",
                         }}
                     >
+                        {"    "}
                         그룹 선택
                     </Text>
                     <Picker
@@ -511,20 +522,21 @@ export default function screen(props) {
                             height: 100,
                             width: "50%",
                             alignSelf: "center",
-                            fontFamily: "nanumpenB",
-                            fontSize: 20,
                         }}
+                        mode="dropdown"
                         onValueChange={(itemValue, itemIndex) =>
                             setSelectedIndex(itemIndex)
                         }
+                        textStyle={{
+                            fontFamily: "nanumpenB",
+                        }}
+                        itemTextStyle={{
+                            fontFamily: "nanumpenB",
+                        }}
                     >
                         {groupData.map((item, index) => {
                             return (
                                 <Picker.Item
-                                    style={{
-                                        fontFamily: "nanumpenB",
-                                        fontSize: 20,
-                                    }}
                                     label={item.group}
                                     value={item.group}
                                     key={index}
@@ -534,7 +546,7 @@ export default function screen(props) {
                     </Picker>
                 </View>
                 <View style={styles.dataList}>
-                    <View style={{ flex: 7 }}>
+                    <View style={{ flex: 8 }}>
                         <FlatList
                             data={groupData[selectedIndex]["members"]}
                             renderItem={({ item, index }) => {
@@ -543,10 +555,11 @@ export default function screen(props) {
                                         <Text
                                             style={{
                                                 flex: 5,
-                                                fontFamily: "nanumpenB",
-                                                fontSize: 15,
+                                                fontFamily: "nanumpenR",
+                                                fontSize: 22,
                                             }}
                                         >
+                                            {"  "}
                                             {item}
                                         </Text>
                                         <View
@@ -588,25 +601,26 @@ export default function screen(props) {
                     </View>
                     <View
                         style={{
-                            flex: 1,
+                            flex: 1.3,
                             justifyContent: "center",
                             alignSelf: "center",
                             width: "50%",
+                            marginTop: "4%",
                         }}
                     >
                         <TouchableOpacity
-                            style={{
-                                flex: 1,
-                                borderWidth: 1,
-                                margin: "4%",
-                            }}
+                            style={[
+                                styles.button,
+                                {
+                                    backgroundColor: "#fafaee",
+                                },
+                            ]}
                             onPress={() => {
                                 setItemAddModalVisible(true);
                             }}
                         >
                             <Text
                                 style={{
-                                    paddingTop: "5%",
                                     textAlign: "center",
                                     width: "100%",
                                     fontFamily: "nanumpenB",
@@ -623,24 +637,24 @@ export default function screen(props) {
                         onPress={() => {
                             setGroupAddModalVisible(true);
                         }}
-                        style={styles.button}
+                        style={[styles.button, { backgroundColor: "#fafaed" }]}
                     >
                         <Text style={{ fontFamily: "nanumpenB", fontSize: 20 }}>
-                            그룹 추가하기
+                            그룹 추가
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
                             setGroupDeleteModalVisible(true);
                         }}
-                        style={styles.button}
+                        style={[styles.button, { backgroundColor: "#fafaed" }]}
                     >
                         <Text style={{ fontFamily: "nanumpenB", fontSize: 20 }}>
-                            그룹 삭제하기
+                            그룹 삭제
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.drawButton}>
+                <View style={styles.drawPlace}>
                     <TouchableOpacity
                         onPress={() => {
                             setMembers([
@@ -653,10 +667,16 @@ export default function screen(props) {
                             });
                             // 저장 후 랜덤뽑기
                         }}
-                        style={[styles.button, { width: "60%", height: "20%" }]}
+                        style={[
+                            styles.button,
+                            {
+                                width: "41%",
+                                backgroundColor: "#faf0e5",
+                            },
+                        ]}
                     >
-                        <Text style={{ fontFamily: "nanumpenB", fontSize: 20 }}>
-                            랜덤뽑기
+                        <Text style={{ fontFamily: "nanumpenB", fontSize: 28 }}>
+                            랜덤 뽑기!
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -676,33 +696,37 @@ export default function screen(props) {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1 },
+    container: { flex: 1, backgroundColor: "#fffff8" },
     dataList: {
-        flex: 8,
+        flex: 6,
         marginHorizontal: "10%",
+        marginBottom: "5%",
         paddingTop: "5%",
         paddingLeft: "5%",
         paddingRight: "2%",
         borderWidth: 1,
+        borderRadius: 10,
     },
     groupEdit: {
         flexDirection: "row",
-        flex: 1,
-        borderWidth: 1,
+        flex: 1.2,
         justifyContent: "space-around",
         paddingHorizontal: "10%",
     },
-    drawButton: {
-        flex: 2,
+    drawPlace: {
+        flex: 1.8,
         alignItems: "center",
     },
     button: {
-        flex: 2,
+        flex: 1,
         padding: "5%",
-        margin: "2.2%",
+        marginBottom: "7%",
+        marginHorizontal: "4%",
         borderWidth: 1,
+        borderRadius: 12,
         alignItems: "center",
         justifyContent: "center",
+        borderColor: "darkgrey",
     },
     miniButton: {
         fontFamily: "nanumpenB",
@@ -711,7 +735,10 @@ const styles = StyleSheet.create({
         marginVertical: "7%",
         padding: "3%",
         borderWidth: 1,
+        borderColor: "grey",
+        borderRadius: 30,
         textAlign: "center",
+        backgroundColor: "ghostwhite",
     },
     centeredView: {
         flex: 1,

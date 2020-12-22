@@ -39,7 +39,7 @@ export default function screen(props) {
 
     const pushList = () => {
         if (numIndex.current === -1) return;
-        let list = winList;
+        let list = [...winList];
         if (!duplicate) {
             const item = data.splice(numIndex.current, 1);
             list.push(item);
@@ -52,6 +52,20 @@ export default function screen(props) {
     const dupBtn = () => {
         if (duplicate) return "중복 On";
         else return "중복 Off";
+    };
+
+    const setFont = (isFirst) => {
+        if (isFirst === 0) {
+            return {
+                fontFamily: "nanumpenB",
+                fontSize: 30,
+            };
+        } else {
+            return {
+                fontFamily: "nanumpenB",
+                fontSize: 20,
+            };
+        }
     };
 
     useEffect(() => {
@@ -103,6 +117,7 @@ export default function screen(props) {
                             marginLeft: "10%",
                             marginVertical: "1.5%",
                             flex: 5,
+                            backgroundColor: "#fffff3",
                         },
                     ]}
                 >
@@ -130,7 +145,7 @@ export default function screen(props) {
                             }
                         }}
                     >
-                        <Text>{dupBtn()}</Text>
+                        <Text style={styles.defaultFont}>{dupBtn()}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[
@@ -150,7 +165,7 @@ export default function screen(props) {
                             }
                         }}
                     >
-                        <Text>돌려</Text>
+                        <Text style={styles.largerFont}>돌려</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[
@@ -170,7 +185,7 @@ export default function screen(props) {
                             }
                         }}
                     >
-                        <Text>멈춰</Text>
+                        <Text style={styles.largerFont}>멈춰</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -188,14 +203,7 @@ export default function screen(props) {
                     renderItem={({ item, index }) => {
                         return (
                             <View style={{ margin: "2%" }}>
-                                <Text
-                                    style={{
-                                        fontFamily: "nanumpenB",
-                                        fontSize: 20,
-                                    }}
-                                >
-                                    {item}
-                                </Text>
+                                <Text style={setFont(index)}>{item}</Text>
                             </View>
                         );
                     }}
@@ -207,7 +215,7 @@ export default function screen(props) {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1 },
+    container: { flex: 1, backgroundColor: "#fffff8" },
     button: {
         borderWidth: 1,
         borderRadius: 5,
@@ -220,11 +228,20 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: "5%",
         marginHorizontal: "10%",
+        backgroundColor: "#fffff3",
     },
     isDuplicate: {
         backgroundColor: "lightgreen",
     },
     isNotDuplicate: {
         backgroundColor: "lightcoral",
+    },
+    defaultFont: {
+        fontFamily: "nanumpenB",
+        fontSize: 15,
+    },
+    largerFont: {
+        fontFamily: "nanumpenB",
+        fontSize: 19,
     },
 });

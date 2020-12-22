@@ -16,7 +16,7 @@ export default function screen(props) {
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => props.navigation.navigate("Name")}
-                style={[styles.button, { backgroundColor: "yellow" }]}
+                style={styles.button}
             >
                 <Text
                     style={{
@@ -49,20 +49,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "#fffff8",
     },
     button: {
         width: "60%",
         height: "10%",
-        //backgroundColor: "yellow",
         borderColor: "black",
+        backgroundColor: "#fafadd",
         borderWidth: 1,
         borderRadius: 15,
         marginBottom: "10%",
         justifyContent: "center",
         alignItems: "center",
-    },
-    backButton: {
-        width: 40,
-        height: 40,
     },
 });

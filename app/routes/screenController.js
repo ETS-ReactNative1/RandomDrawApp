@@ -67,7 +67,7 @@ function App() {
                         name="NumDraw"
                         component={NumDraw}
                         options={{
-                            title: "과연 결과는2..?",
+                            title: "과연 결과는..?",
                             headerTitleStyle: {
                                 fontFamily: "nanumpenB",
                                 textAlign: "center",
