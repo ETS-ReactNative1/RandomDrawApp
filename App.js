@@ -33,16 +33,16 @@ export default function App() {
         return (
             <AdMobBanner
                 bannerSize="fullBanner"
-                adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+                adUnitID="ca-app-pub-8596476786252416/2974969353"
                 servePersonalizedAds // true or false
                 onDidFailToReceiveAdWithError={this.bannerError}
             />
         );
     };
 
-    /*useEffect(() => {
+    useEffect(() => {
         interstitial();
-    }, [fontLoaded]);*/
+    }, [fontLoaded]);
 
     if (fontLoaded) {
         return (
@@ -67,7 +67,7 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: "#fffff8",
         alignItems: "center",
         justifyContent: "flex-end",
     },

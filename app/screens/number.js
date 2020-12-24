@@ -4,13 +4,8 @@ import {
     Text,
     StyleSheet,
     TextInput,
-    FlatList,
     TouchableOpacity,
-    Image,
 } from "react-native";
-import { ceil } from "react-native-reanimated";
-import back from "../assets/back.png";
-//import logo from "../assets/logo.png";
 
 const shuffle = (a) => {
     var j, x, i;
@@ -29,7 +24,6 @@ export default function screen(props) {
     const randomDraw = () => {
         if (max > min) {
             const l = max - min + 1;
-            console.log(l);
             const data = Array(l)
                 .fill()
                 .map((item, index) => {

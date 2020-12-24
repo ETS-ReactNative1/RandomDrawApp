@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, Button } from "react-native";
+import React from "react";
+import { View } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -9,8 +9,6 @@ import Name from "../screens/name.js";
 import Num from "../screens/number.js";
 import NameDraw from "../screens/nameDraw";
 import NumDraw from "../screens/numberDraw";
-
-//import logo from "../assets/logo.png";
 
 const Stack = createStackNavigator();
 

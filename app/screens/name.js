@@ -4,18 +4,13 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Button,
     FlatList,
     TouchableOpacity,
-    Image,
-    a,
 } from "react-native";
 import AppLoading from "expo-app-loading";
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Modal from "react-native-modal";
-import back from "../assets/back.png";
-//import logo from "../assets/logo.png";
 
 const shuffle = (a) => {
     var j, x, i;
@@ -38,6 +33,7 @@ export default function screen(props) {
     const [groupDeleteModalVisible, setGroupDeleteModalVisible] = useState(
         false
     );
+    const [cantDeleteModalVisible, setCantDeleteModalVisible] = useState(false);
     const [members, setMembers] = useState([]);
     const [addItem, setAddItem] = useState("");
     const [selectedItemIndex, setSelectedItemIndex] = useState(undefined);
@@ -49,9 +45,8 @@ export default function screen(props) {
     };
 
     const removeGroupList = (groupIndex) => {
-        //AsyncStorage.clear();
         if (groupData.length === 1) {
-            console.log("삭제 실패");
+            setCantDeleteModalVisible(true);
         } else {
             let list = [...groupData];
             list.splice(groupIndex, 1);
@@ -67,10 +62,7 @@ export default function screen(props) {
     };
     const editItemList = (groupIndex, itemIndex, item) => {
         var list = [...groupData];
-        console.log(list[groupIndex]["members"][itemIndex], item);
         list[groupIndex]["members"][itemIndex] = item;
-        console.log(list[groupIndex]["members"][itemIndex], item);
-        console.log(list);
         setGroupData(list);
         AsyncStorage.setItem("groupList", JSON.stringify(list));
     };
@@ -105,6 +97,53 @@ export default function screen(props) {
     useEffect(() => {
         initData();
     }, []);
+
+    const cantDeleteModal = () => {
+        return (
+            <View>
+                <Modal
+                    closeOnTouchOutside={true}
+                    animationType="slide"
+                    transparent={true}
+                    visible={cantDeleteModalVisible}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text
+                                style={{
+                                    fontSize: 20,
+                                    fontFamily: "nanumpenB",
+                                }}
+                            >
+                                {" "}
+                                최소 1개 이상의 그룹이 필요합니다{" \n"}
+                            </Text>
+
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                }}
+                            >
+                                <TouchableOpacity
+                                    style={{
+                                        ...styles.openButton,
+                                        backgroundColor: "#ddd8d8",
+                                    }}
+                                    onPress={() => {
+                                        setCantDeleteModalVisible(
+                                            !cantDeleteModalVisible
+                                        );
+                                    }}
+                                >
+                                    <Text style={styles.textStyle}>확인</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+        );
+    };
 
     const itemAddModal = () => {
         return (
@@ -495,6 +534,7 @@ export default function screen(props) {
                 {itemDeleteModal()}
                 {groupAddModal()}
                 {groupDeleteModal()}
+                {cantDeleteModal()}
                 <View
                     style={{
                         flex: 1.2,
@@ -552,46 +592,66 @@ export default function screen(props) {
                             renderItem={({ item, index }) => {
                                 return (
                                     <View style={listColor(index)}>
-                                        <Text
-                                            style={{
-                                                flex: 5,
-                                                fontFamily: "nanumpenR",
-                                                fontSize: 22,
-                                            }}
-                                        >
-                                            {"  "}
-                                            {item}
-                                        </Text>
+                                        <View style={{ flex: 5 }}>
+                                            <Text
+                                                style={{
+                                                    fontFamily: "nanumpenR",
+                                                    fontSize: 22,
+                                                }}
+                                            >
+                                                {"  "}
+                                                {item}
+                                            </Text>
+                                        </View>
                                         <View
                                             style={{
                                                 flex: 4,
                                                 flexDirection: "row",
                                             }}
                                         >
-                                            <TouchableOpacity
-                                                onPress={() => {
-                                                    setSelectedItemIndex(index);
-                                                    setItemEditModalVisible(
-                                                        true
-                                                    );
-                                                }}
-                                            >
-                                                <Text style={styles.miniButton}>
-                                                    수정
-                                                </Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity
-                                                onPress={() => {
-                                                    setSelectedItemIndex(index);
-                                                    setItemDeleteModalVisible(
-                                                        true
-                                                    );
-                                                }}
-                                            >
-                                                <Text style={styles.miniButton}>
-                                                    삭제
-                                                </Text>
-                                            </TouchableOpacity>
+                                            <View style={{ flex: 1 }}>
+                                                <TouchableOpacity
+                                                    onPress={() => {
+                                                        setSelectedItemIndex(
+                                                            index
+                                                        );
+                                                        setItemEditModalVisible(
+                                                            true
+                                                        );
+                                                    }}
+                                                >
+                                                    <Text
+                                                        style={
+                                                            styles.miniButton
+                                                        }
+                                                    >
+                                                        수정
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            <View style={{ flex: 1 }}>
+                                                <TouchableOpacity
+                                                    onPress={() => {
+                                                        setSelectedItemIndex(
+                                                            index
+                                                        );
+                                                        setItemDeleteModalVisible(
+                                                            true
+                                                        );
+                                                    }}
+                                                >
+                                                    <Text
+                                                        style={
+                                                            styles.miniButton
+                                                        }
+                                                    >
+                                                        삭제
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            <View style={{ flex: 0.1 }}>
+                                                <Text>{""}</Text>
+                                            </View>
                                         </View>
                                     </View>
                                 );

@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Button,
-    FlatList,
-    TouchableOpacity,
-    Image,
-} from "react-native";
-import back from "../assets/back.png";
-//import logo from "../assets/logo.png";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function screen(props) {
     return (

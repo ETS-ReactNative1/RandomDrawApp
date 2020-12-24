@@ -1,15 +1,11 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
     View,
     Text,
     StyleSheet,
-    Button,
     FlatList,
     TouchableOpacity,
-    Image,
 } from "react-native";
-import back from "../assets/back.png";
-//import logo from "../assets/logo.png";
 
 export default function screen(props) {
     const { _data, _min, _max } = props.route.params;
@@ -73,7 +69,6 @@ export default function screen(props) {
     }, [duplCnt]);
 
     useEffect(() => {
-        console.log("useEffect");
         if (isSpinning === false) {
             pushList();
             return () => {

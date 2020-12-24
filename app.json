@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "RandomDraw",
+    "name": "랜덤뽑기",
     "slug": "RandomDraw",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
       "image": "./app/assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#fffff8"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.eziong.lottery",
+      "bundleIdentifier": "com.eziong.RandomDraw",
       "buildNumber": "1.0.0",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-8596476786252416~6676193606"
@@ -32,8 +32,8 @@
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-8596476786252416~6676193606"
       },
-      "package": "ccom.eziong.lottery",
-      "versionCode": 1
+      "package": "com.eziong.RandomDraw",
+      "versionCode": 3
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
